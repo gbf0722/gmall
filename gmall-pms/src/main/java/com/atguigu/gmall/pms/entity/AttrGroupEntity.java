@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
-
 import lombok.Data;
+import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * 属性分组
@@ -15,6 +16,7 @@ import lombok.Data;
  * @email 1052651354@qq.com
  * @date 2019-12-03 04:03:53
  */
+@ToString
 @ApiModel
 @Data
 @TableName("pms_attr_group")

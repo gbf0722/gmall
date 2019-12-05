@@ -1,19 +1,18 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.util.Arrays;
-
-
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.AttrEntity;
+import com.atguigu.gmall.pms.service.AttrService;
+import com.atguigu.gmall.pms.vo.AttrVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.AttrEntity;
-import com.atguigu.gmall.pms.service.AttrService;
+import java.util.Arrays;
 
 
 
@@ -31,6 +30,23 @@ import com.atguigu.gmall.pms.service.AttrService;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+
+    @ApiOperation("新建规格参数")
+    @PostMapping("/save")
+    public Resp<Object> saveAttr(@RequestBody AttrVO attrVO){
+        this.attrService.saveAttr(attrVO);
+        System.out.println("aaa");
+
+        return Resp.ok(null);
+    }
+    @ApiOperation("根据条件分页查询")
+    @GetMapping
+    public Resp<PageVo> queryByCidTypePage(QueryCondition condition,@RequestParam("cid")
+                 long cid,@RequestParam(value ="type",required = true)int type){
+        PageVo page=attrService.queryByCidTypePage(condition, cid, type);
+
+        return Resp.ok(page);
+    }
 
     /**
      * 列表
@@ -60,7 +76,7 @@ public class AttrController {
     /**
      * 保存
      */
-    @ApiOperation("保存")
+    /*@ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:attr:save')")
     public Resp<Object> save(@RequestBody AttrEntity attr){
@@ -68,7 +84,7 @@ public class AttrController {
 
         return Resp.ok(null);
     }
-
+*/
     /**
      * 修改
      */

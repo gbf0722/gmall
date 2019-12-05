@@ -1,21 +1,18 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.util.Arrays;
-
-
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.SkuInfoEntity;
+import com.atguigu.gmall.pms.service.SkuInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.SkuInfoEntity;
-import com.atguigu.gmall.pms.service.SkuInfoService;
-
-
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -31,6 +28,16 @@ import com.atguigu.gmall.pms.service.SkuInfoService;
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
+
+
+    @ApiOperation("查找指定的sup下的所有的sku")
+    @GetMapping("/{spuId}")
+    public Resp<List<SkuInfoEntity>> querySkuBySpuId(@PathVariable long spuId){
+        List<SkuInfoEntity> skuInfoEntityList=this.skuInfoService.querySkuBySpuId(spuId);
+
+
+        return Resp.ok(skuInfoEntityList);
+    }
 
     /**
      * 列表

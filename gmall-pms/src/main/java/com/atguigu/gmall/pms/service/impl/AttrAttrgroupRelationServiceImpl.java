@@ -12,6 +12,8 @@ import com.atguigu.gmall.pms.dao.AttrAttrgroupRelationDao;
 import com.atguigu.gmall.pms.entity.AttrAttrgroupRelationEntity;
 import com.atguigu.gmall.pms.service.AttrAttrgroupRelationService;
 
+import java.util.List;
+
 
 @Service("attrAttrgroupRelationService")
 public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationDao, AttrAttrgroupRelationEntity> implements AttrAttrgroupRelationService {
@@ -24,6 +26,16 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
         );
 
         return new PageVo(page);
+    }
+
+    @Override
+    public void delteAttr(List<AttrAttrgroupRelationEntity> attrAttrGroupEntityList) {
+        attrAttrGroupEntityList.forEach(relationEntity -> {
+            QueryWrapper<AttrAttrgroupRelationEntity> wrapper = new QueryWrapper<>();
+            wrapper.eq("attr_id", relationEntity.getAttrId());
+            wrapper.eq("attr_group_id", relationEntity.getAttrGroupId());
+            this.remove(wrapper);
+        });
     }
 
 }

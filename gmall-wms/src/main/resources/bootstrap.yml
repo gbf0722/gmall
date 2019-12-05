@@ -1,10 +1,10 @@
 spring:
   application:
-    name: pms-service
+    name: wms-service
   cloud:
     nacos:
       config:
         server-addr: 127.0.0.1:8848
-        namespace: 4b686452-d087-4c2d-b20b-4995d331baed
+        namespace: 08a27d0a-b00b-4a51-ae6c-df357fae5a2c
         group: dev
         file-extension: yml

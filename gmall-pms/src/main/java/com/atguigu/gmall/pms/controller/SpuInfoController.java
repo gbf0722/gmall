@@ -1,19 +1,17 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.util.Arrays;
-
-
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.SpuInfoEntity;
+import com.atguigu.gmall.pms.service.SpuInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.SpuInfoEntity;
-import com.atguigu.gmall.pms.service.SpuInfoService;
+import java.util.Arrays;
 
 
 
@@ -31,6 +29,14 @@ import com.atguigu.gmall.pms.service.SpuInfoService;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    @ApiOperation("spu商品的信息的查询")
+    @GetMapping
+    public Resp<PageVo> querySpuInfo(QueryCondition condition ,@RequestParam long catId){
+        PageVo pageVo=this.spuInfoService.querySpuInfo(condition, catId);
+
+        return Resp.ok(pageVo);
+    }
 
     /**
      * 列表
