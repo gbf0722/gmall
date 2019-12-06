@@ -6,6 +6,8 @@ import com.atguigu.gmall.pms.entity.AttrGroupEntity;
 import com.atguigu.gmall.pms.vo.GroupVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 
 /**
  * 属性分组
@@ -21,5 +23,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
     PageVo queryByCidPage(QueryCondition condition, long catId);
 
     GroupVO queryById(long gid);
+
+    List<GroupVO> queryByCid(Long cid);
 }
 

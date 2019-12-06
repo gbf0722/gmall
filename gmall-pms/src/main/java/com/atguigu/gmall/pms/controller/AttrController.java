@@ -35,7 +35,6 @@ public class AttrController {
     @PostMapping("/save")
     public Resp<Object> saveAttr(@RequestBody AttrVO attrVO){
         this.attrService.saveAttr(attrVO);
-        System.out.println("aaa");
 
         return Resp.ok(null);
     }
