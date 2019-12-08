@@ -7,7 +7,6 @@ import com.atguigu.gmall.pms.dao.AttrDao;
 import com.atguigu.gmall.pms.dao.SkuInfoDao;
 import com.atguigu.gmall.pms.dao.SpuInfoDao;
 import com.atguigu.gmall.pms.dao.SpuInfoDescDao;
-import com.atguigu.gmall.pms.dto.SkuSaleDTO;
 import com.atguigu.gmall.pms.entity.*;
 import com.atguigu.gmall.pms.feign.SkuSaleFeign;
 import com.atguigu.gmall.pms.service.ProductAttrValueService;
@@ -20,11 +19,13 @@ import com.atguigu.gmall.pms.vo.SpuInfoVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import vo.SkuSaleVO;
 
 import java.util.Date;
 import java.util.List;
@@ -80,6 +81,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     private SkuSaleFeign skuSaleFeign;
 
     @Override
+    @GlobalTransactional
     public void saveSpuInfoVO(SpuInfoVO spuInfoVO) {
         //1.保存spu 的相关信息
         // 1.1. 保存spu基本信息 spu_info表
@@ -166,19 +168,20 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
             });
             this.skuSaleAttrValueService.saveBatch(saleAttrs);
+
             // 3. 保存营销相关信息，需要远程调用gmall-sms
             // 3.1. 积分优惠
 
             // 3.2. 满减优惠
 
             // 3.3. 数量折扣
-            SkuSaleDTO skuSaleDTO = new SkuSaleDTO();
-            BeanUtils.copyProperties(skuInfoVO, skuSaleDTO);
-            skuSaleDTO.setSkuId(skuId);
+            SkuSaleVO skuSaleVO = new SkuSaleVO();
+            BeanUtils.copyProperties(skuInfoVO, skuSaleVO);
+            skuSaleVO.setSkuId(skuId);
             //System.out.println(skuSaleDTO.toString());
-            this.skuSaleFeign.saveSkuSaleInfo(skuSaleDTO);
+            this.skuSaleFeign.saveSkuSaleInfo(skuSaleVO);
+            //int i= 1/0;
         });
-
 
     }
 

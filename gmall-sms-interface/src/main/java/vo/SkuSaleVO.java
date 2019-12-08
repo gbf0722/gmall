@@ -1,4 +1,4 @@
-    package com.atguigu.gmall.sms.dto;
+package vo;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class SkuSaleDTO {
+public class SkuSaleVO {
     private Long skuId;
 
     // 积分营销相关字段

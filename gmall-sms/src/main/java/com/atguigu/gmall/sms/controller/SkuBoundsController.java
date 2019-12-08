@@ -3,7 +3,6 @@ package com.atguigu.gmall.sms.controller;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
-import com.atguigu.gmall.sms.dto.SkuSaleDTO;
 import com.atguigu.gmall.sms.entity.SkuBoundsEntity;
 import com.atguigu.gmall.sms.service.SkuBoundsService;
 import io.swagger.annotations.Api;
@@ -11,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import vo.SkuSaleVO;
 
 import java.util.Arrays;
 
@@ -33,8 +33,8 @@ public class SkuBoundsController {
 
     @ApiOperation("新增的sku营销的方法")
     @PostMapping("/skusale/save")
-    public Resp<Object> saveSkuSaleInfo(@RequestBody SkuSaleDTO skuSaleDTO) {
-        this.skuBoundsService.saveSkuSaleInfo(skuSaleDTO);
+    public Resp<Object> saveSkuSaleInfo(@RequestBody SkuSaleVO skuSaleVO) {
+        this.skuBoundsService.saveSkuSaleInfo(skuSaleVO);
 
 
         return Resp.ok(null);
