@@ -32,7 +32,7 @@ public class SkuInfoController {
 
     @ApiOperation("查找指定的sup下的所有的sku")
     @GetMapping("/{spuId}")
-    public Resp<List<SkuInfoEntity>> querySkuBySpuId(@PathVariable long spuId){
+    public Resp<List<SkuInfoEntity>> querySkuBySpuId(@PathVariable("spuId") long spuId){
         List<SkuInfoEntity> skuInfoEntityList=this.skuInfoService.querySkuBySpuId(spuId);
 
 

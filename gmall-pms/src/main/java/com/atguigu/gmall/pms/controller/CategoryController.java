@@ -33,7 +33,9 @@ public class CategoryController {
     @GetMapping
     public Resp<List<CategoryEntity>> queryCategoriesByPidOrLevel(@RequestParam(value="level",defaultValue = "0") Integer level,
                                                                   @RequestParam(value="parentCid",required = false) Long parentCid){
+//        QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
         QueryWrapper<CategoryEntity> wrapper = new QueryWrapper<>();
+
         //判断分类级别是否为0
         if (level != 0) {
             wrapper.eq("cat_level", level);
