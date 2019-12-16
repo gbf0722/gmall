@@ -30,6 +30,8 @@ public class SkuInfoController {
     private SkuInfoService skuInfoService;
 
 
+
+
     @ApiOperation("查找指定的sup下的所有的sku")
     @GetMapping("/{spuId}")
     public Resp<List<SkuInfoEntity>> querySkuBySpuId(@PathVariable("spuId") long spuId){
@@ -58,7 +60,7 @@ public class SkuInfoController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{skuId}")
     @PreAuthorize("hasAuthority('pms:skuinfo:info')")
-    public Resp<SkuInfoEntity> info(@PathVariable("skuId") Long skuId){
+    public Resp<SkuInfoEntity> querySkuById(@PathVariable("skuId") Long skuId){
 		SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
         return Resp.ok(skuInfo);

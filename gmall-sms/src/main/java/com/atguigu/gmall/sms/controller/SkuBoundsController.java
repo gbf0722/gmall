@@ -10,11 +10,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import vo.SaleVO;
 import vo.SkuSaleVO;
 
 import java.util.Arrays;
-
-
+import java.util.List;
 
 
 /**
@@ -30,6 +30,17 @@ import java.util.Arrays;
 public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
+
+    @GetMapping("/{skuId}")
+    public Resp<List<SaleVO>> querySalesBySkuId(@PathVariable("skuId")Long skuId){
+        List<SaleVO> saleVOS= skuBoundsService.querySalesBySkuId(skuId);
+
+
+        return Resp.ok(saleVOS);
+    }
+
+
+
 
     @ApiOperation("新增的sku营销的方法")
     @PostMapping("/skusale/save")

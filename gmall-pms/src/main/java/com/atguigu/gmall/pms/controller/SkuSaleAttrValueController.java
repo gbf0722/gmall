@@ -12,8 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-
-
+import java.util.List;
 
 
 /**
@@ -29,6 +28,13 @@ import java.util.Arrays;
 public class SkuSaleAttrValueController {
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
+
+    @GetMapping("{spuId}")  // 根据spuId查询所有的销售属性
+    public Resp<List<SkuSaleAttrValueEntity>> querySkuSaleAttrValueBySpuId(@PathVariable("spuId")Long spuId){
+        List<SkuSaleAttrValueEntity>skuSaleAttrValueEntities= this.skuSaleAttrValueService.querySkuSaleAttrValueBySpuId(spuId);
+        return Resp.ok(skuSaleAttrValueEntities);
+
+    }
 
     /**
      * 列表
