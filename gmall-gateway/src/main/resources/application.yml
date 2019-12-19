@@ -36,8 +36,30 @@ spring:
             - Path=/api/item/**
           filters:
             - RewritePath=/api(?<segment>/?.*), $\{segment}
+        - id: auth-service # 授权中心
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: cart-service # 购物车服务
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: order-service # 订单服务
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
   application:
     name: gateway-api
+gmall:
+  jwt:
+    pubKeyPath: E:\\tmp\\rsa\\rsa.pub # 公钥地址
+    cookieName: GMALL_TOKEN # cookie的名称

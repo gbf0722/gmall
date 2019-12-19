@@ -15,6 +15,7 @@ import vo.SaleVO;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Service
 public class ItemService {
@@ -28,7 +29,8 @@ public class ItemService {
     @Autowired
     private GmallWmsFeign gmallWmsFeign;
 
-
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
 
     public ItemVO queryItemVO(Long skuId) {
         ItemVO itemVO = new ItemVO();

@@ -14,6 +14,10 @@ import java.util.List;
 public interface GmallPmsApi {
 
 
+    @ApiOperation("查询sku的所有销售属性")
+    @GetMapping("pms/skusaleattrvalue/sku/{skuId}")
+    public Resp<List<SkuSaleAttrValueEntity>> querySkuSaleAttrValueBySkuId(@PathVariable("skuId")Long skuId);
+
     @GetMapping("pms/attrgroup/item/group/{cid}/{spuId}")
     public Resp<List<ItemGroupVO>> queryItemGroupVOByCidAndSpuId(@PathVariable("cid")Long cid, @PathVariable("spuId")Long spuId);
 

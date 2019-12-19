@@ -5,6 +5,7 @@ import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
 import com.atguigu.gmall.wms.entity.WareSkuEntity;
 import com.atguigu.gmall.wms.service.WareSkuService;
+import com.atguigu.gmall.wms.vo.SkuLockVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,11 +31,20 @@ public class WareSkuController {
     @Autowired
     private WareSkuService wareSkuService;
 
+    @PostMapping("check/lock")
+    public Resp<Object> checkAndLockStock(@RequestBody List<SkuLockVO> skuLockVOS) {
+        String msg = this.wareSkuService.checkAndLockStock(skuLockVOS);
+        return Resp.ok(msg);
+    }
+
+
+
+
 
     @ApiOperation("根据skuId查寻库存信息")
     @GetMapping("{skuId}")
     public Resp<List<WareSkuEntity>> queryWareSkuBySkuId(@PathVariable("skuId") long skuId){
-        System.out.println("aaa方法执行了");
+
         QueryWrapper<WareSkuEntity> wrapper = new QueryWrapper<>();
         wrapper.eq("sku_id", skuId);
         List<WareSkuEntity> wareSkuEntits = this.wareSkuService.list(wrapper);
