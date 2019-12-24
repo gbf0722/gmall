@@ -22,6 +22,11 @@ public class AuthController {
     @Autowired
     private JwtProperties jwtProperties;
 
+    @GetMapping("/test")
+    public String test(String name){
+        System.out.println(name);
+        return "ok";
+    }
 
     @PostMapping("accredit")
     public Resp<Object> accredit(@RequestParam("username")String username, @RequestParam("password")String password

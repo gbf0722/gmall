@@ -1,4 +1,13 @@
 package com.atguigu.gmall.oms.api;
 
-public class GmallOmsApi {
+import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.oms.api.entity.OrderEntity;
+import com.atguigu.gmall.oms.api.vo.OrderSubmitVO;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+public interface GmallOmsApi {
+
+    @PostMapping("oms/order")
+    public Resp<OrderEntity> saveOrder(@RequestBody OrderSubmitVO orderSubmitVO);
 }

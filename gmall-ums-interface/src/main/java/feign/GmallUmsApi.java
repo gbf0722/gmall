@@ -31,7 +31,7 @@ public interface GmallUmsApi {
      * @return
      */
     @GetMapping("ums/member/info/{id}")
-    public Resp<MemberEntity> userInfo(@PathVariable("id") Long id);
+    public Resp<MemberEntity> queryMemberById(@PathVariable("id") Long id);
 
 
     /**

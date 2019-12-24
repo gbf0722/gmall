@@ -8,3 +8,10 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.56.101:9200
+  jackson:
+    default-property-inclusion: non_null
+  rabbitmq:
+    host: 192.168.56.101
+    virtual-host: /gbf
+    username: gbf
+    password: gbf

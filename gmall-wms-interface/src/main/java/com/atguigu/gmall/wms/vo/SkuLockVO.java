@@ -8,5 +8,6 @@ public class SkuLockVO {
     private Integer count;
     private Long wareSkuId;  //锁定库存的Id；
     private Boolean lock;  //锁定状态
+    private String orderToken;
 
 }

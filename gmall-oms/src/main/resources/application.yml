@@ -1,6 +1,11 @@
 server:
   port: 8084
 spring:
+  rabbitmq:
+    host: 192.168.56.101
+    virtual-host: /gbf
+    username: gbf
+    password: gbf
   cloud:
     nacos:
       discovery:
@@ -17,3 +22,5 @@ mybatis-plus:
     db-config:
       id-type: auto
   mapper-locations: classpath:mapper/oms/**/*.xml
+
+

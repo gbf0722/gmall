@@ -3,7 +3,8 @@ package com.atguigu.gmall.oms.controller;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
-import com.atguigu.gmall.oms.entity.OrderEntity;
+import com.atguigu.gmall.oms.api.vo.OrderSubmitVO;
+import com.atguigu.gmall.oms.api.entity.OrderEntity;
 import com.atguigu.gmall.oms.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,16 @@ import java.util.Arrays;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+    @PostMapping
+    public Resp<OrderEntity> saveOrder(@RequestBody OrderSubmitVO orderSubmitVO){
+       OrderEntity orderEntity= this.orderService.saveOrder(orderSubmitVO);
+        return Resp.ok(orderEntity);
+    }
+
+
+
+
 
     /**
      * 列表

@@ -1,6 +1,11 @@
 server:
   port: 8083
 spring:
+  rabbitmq:
+    host: 192.168.56.101
+    username: gbf
+    password: gbf
+    virtual-host: /gbf
   cloud:
     nacos:
       discovery:

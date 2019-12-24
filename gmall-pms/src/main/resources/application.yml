@@ -1,6 +1,12 @@
 server:
   port: 8081
 spring:
+  rabbitmq:
+    host: 192.168.56.101
+    port: 5672
+    virtual-host: /gbf
+    username: gbf
+    password: gbf
   cloud:
     nacos:
       discovery:
@@ -17,3 +23,8 @@ mybatis-plus:
     db-config:
       id-type: auto
   mapper-locations: classpath:mapper/pms/**/*.xml
+
+
+item:
+  rabbitmq:
+    exchange: GMALL-PMS-EXCHANGE

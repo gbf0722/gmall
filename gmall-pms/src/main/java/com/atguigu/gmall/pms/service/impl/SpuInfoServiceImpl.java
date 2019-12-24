@@ -21,8 +21,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import vo.SkuSaleVO;
@@ -79,6 +81,18 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     @Autowired
     private SkuSaleFeign skuSaleFeign;
+
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
+    @Value("${item.rabbitmq.exchange}")
+    private String EXCHANGE_NAME;
+
+    private void sendMSG(String type, Long spuId) {
+        this.amqpTemplate.convertAndSend(EXCHANGE_NAME,"item."+type,spuId);
+    }
+
 
     @Override
     @GlobalTransactional
@@ -182,6 +196,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             this.skuSaleFeign.saveSkuSaleInfo(skuSaleVO);
             //int i= 1/0;
         });
+        //sendMSG("insert", spuId);
 
     }
 
