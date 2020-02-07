@@ -4,6 +4,7 @@ import com.atguigu.core.bean.Resp;
 import com.atguigu.core.bean.UserInfo;
 import com.atguigu.core.exception.Orderexception;
 import com.atguigu.gmall.cart.pojo.Cart;
+import com.atguigu.gmall.oms.api.entity.OrderEntity;
 import com.atguigu.gmall.oms.api.vo.OrderItemVO;
 import com.atguigu.gmall.oms.api.vo.OrderSubmitVO;
 import com.atguigu.gmall.order.feign.*;
@@ -118,7 +119,7 @@ public class OrderService {
         return confirmVO;
     }
 
-    public void submit(OrderSubmitVO orderSubmitVO) {
+    public OrderEntity submit(OrderSubmitVO orderSubmitVO) {
         UserInfo userInfo = LoginInterceptor.getUserInfo();
 
         //1.防止重复提交，查询redis中没有orderToken的信息，有，则是第一次提交，放行并删除redis中的orderToken
@@ -172,10 +173,12 @@ public class OrderService {
 
         //int i =1/0;
         //4.下单（创建订单及订单详情）
+        Resp<OrderEntity> orderEntityResp=null;
        try {
             orderSubmitVO.setUserId(userInfo.getId());
-            this.gmallOmsFeign.saveOrder(orderSubmitVO);
-        } catch (Exception e) {
+           orderEntityResp = this.gmallOmsFeign.saveOrder(orderSubmitVO);
+
+       } catch (Exception e) {
             e.printStackTrace();
             //发送消息给wms ,解锁对应的库存
             this.amqpTemplate.convertAndSend("GMALL-ORDER-EXCHANGE", "stock.unlock", orderToken);
@@ -189,6 +192,13 @@ public class OrderService {
         List<Long> skuIds = items.stream().map(OrderItemVO::getSkuId).collect(Collectors.toList());
         map.put("skuIds", skuIds);
         this.amqpTemplate.convertAndSend("GMALL-ORDER-EXCHANGE","cart.delete",map);
+
+        if ( orderEntityResp !=null) {
+            OrderEntity orderEntity = orderEntityResp.getData();
+            return orderEntity;
+
+        }
+        return null;
 
     }
 

@@ -38,4 +38,20 @@ public class WareListener {
     }
 
 
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(value = "WMS-MINUS-QUEUE", durable = "true"),
+            exchange = @Exchange(value = "GMALL-ORDER-EXCHANGE", ignoreDeclarationExceptions = "true", type = ExchangeTypes.TOPIC),
+            key = {"stock.minus"}
+    ))
+    public void minusStoreListener(String orderToken){
+        String lockJson = this.redisTemplate.opsForValue().get(KEY_PREFIX + orderToken);
+        List<SkuLockVO> skuLockVOS = JSON.parseArray(lockJson, SkuLockVO.class);
+        skuLockVOS.forEach(skuLockVO -> {
+            this.wareSkuDao.minusStore(skuLockVO.getWareSkuId(), skuLockVO.getCount());
+        });
+    }
+
+
+
 }
